@@ -13,81 +13,91 @@ A production-grade collection of autonomous AI engineering skills for **Google A
 
 ---
 
-## 🛠️ Prerequisites: What Needs to Be Installed
+## 🔌 MCP Servers: Which Ones Are Needed & How to Setup
 
-To ensure these skills operate at maximum capability, your local environment should have the following dependencies installed and configured:
+Antigravity uses the **Model Context Protocol (MCP)** to give AI agents browser automation tools so they can launch browsers, inspect pages, and take visual screenshots.
 
-### 1. Node.js & Package Manager (Essential)
-- **Node.js**: `v18.0.0` or higher (tested with Node `v22+` and `v24+`).
-- **npm** (comes with Node), **pnpm**, or **yarn**.
-- *Why it's needed*: The skills build and launch local development servers (Vite, Next.js, React) to compile code and perform live browser verification.
-- *Verify*:
-  ```bash
-  node -v
-  npm -v
-  ```
+### Which MCP Servers Are Needed?
+To enable automated visual verification, screenshot capture, and layout checks:
 
-### 2. Python 3.8+ (Essential)
-- **Python**: Standard library Python 3.8+ (no `pip install` required!).
-- *Why it's needed*: Runs the built-in helper scripts:
-  - `asset_analyzer.py`: Automatically inspects image dimensions, aspect ratios, alpha transparency, and sprite sheets.
-  - `design_token_generator.py`: Scaffolds cohesive CSS variables for 7 design archetypes.
-- *Verify*:
-  ```bash
-  python --version
-  ```
+1. **`playwright`** (Recommended): Provides browser navigation, full-page screenshots, viewport resizing, element clicking, and console error logging.
+2. **`chrome-devtools`** (Alternative/Supplementary): Provides Chromium DevTools integration, DOM auditing, accessibility checks, and network inspection.
 
-### 3. Browser Automation / MCP Tools (Crucial for Verification)
-- **Playwright MCP** or **Chrome DevTools MCP**:
-  - *Why it's needed*: The skills enforce a **mandatory browser testing phase**. Antigravity uses Playwright / Chrome DevTools to navigate to `http://localhost:5173/`, resize the browser window across 5 viewport breakpoints (1440px, 1280px, 768px, 390px, 360px), take full-page screenshots, check for horizontal overflow, and audit console errors.
-  - *Setup*: Configured automatically when the `playwright` or `chrome-devtools` MCP server is enabled in Antigravity.
+### Do I Need to Manually Install Them?
+**No manual `npm install` is required!**  
+Both servers run on-demand using `npx -y` (part of standard Node.js). Antigravity automatically downloads and starts the lightweight server processes in the background when needed.
 
-### 4. Git (Recommended)
-- Used for version control, branching, and pushing completed projects to GitHub.
-- *Verify*:
-  ```bash
-  git --version
-  ```
+### How to Add Them to Antigravity
+
+#### Option A: Automatic Setup via Installer (Easiest)
+Running `.\install.ps1` (Windows) or `./install.sh` (macOS/Linux) automatically configures both skills and merges the browser MCP servers into your `~/.gemini/config/mcp_config.json` file.
+
+#### Option B: Manual Setup
+Add the following to your global configuration file at `~/.gemini/config/mcp_config.json` (Windows: `C:\Users\<User>\.gemini\config\mcp_config.json`):
+
+```json
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@latest"
+      ]
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@latest"
+      ]
+    }
+  }
+}
+```
+
+A template file is included in this repository: [`mcp_config.example.json`](./mcp_config.example.json).
 
 ---
 
-## 💻 Installation Guide
+## 🛠️ System Prerequisites
 
-You can install these skills globally (available across all projects on your machine) or per-project.
+| Dependency | Purpose | Verification Command |
+| :--- | :--- | :--- |
+| **Node.js (v18+)** | Compiles React/Vite/Next.js code and runs dev servers | `node -v` |
+| **Python (3.8+)** | Runs `asset_analyzer.py` and `design_token_generator.py` (No external packages needed) | `python --version` |
+| **Git** | Repository version control | `git --version` |
+| **MCP Servers** | Browser screenshot & console error auditing | Enabled in `mcp_config.json` |
+
+---
+
+## 💻 1-Click Installation Guide
 
 ### Method 1: Global Installation (Recommended)
 
 #### On Windows (PowerShell):
-Run the included one-click installer:
 ```powershell
 .\install.ps1
 ```
-*(Manually copies skills into `C:\Users\<YourUser>\.gemini\config\skills\`)*
+*Installs skills to `~/.gemini/config/skills/` and auto-configures `mcp_config.json`.*
 
 #### On macOS / Linux (Bash):
-Run the installer script:
 ```bash
 chmod +x install.sh
 ./install.sh
 ```
-*(Manually copies skills into `~/.gemini/config/skills/`)*
 
 ---
 
 ### Method 2: Project-Level Installation
-To include these skills directly within a specific repository (so anyone cloning the project has them):
-1. Create an `.agents/skills` directory at your project root:
-   ```bash
-   mkdir -p .agents/skills
-   ```
-2. Copy the skill folders into it:
-   ```text
-   your-project/
-   └── .agents/
-       └── skills/
-           ├── autonomous-website-architect/
-           └── pixel-perfect-website-replica/
-   ```
+Copy the skills folder directly into any project repo:
+```text
+your-project/
+└── .agents/
+    └── skills/
+        ├── autonomous-website-architect/
+        └── pixel-perfect-website-replica/
+```
 
 ---
 
@@ -100,7 +110,7 @@ Pre-packaged `.zip` archives are provided in the [`packages/`](./packages) folde
 
 ## 🎯 How to Trigger the Skills
 
-Antigravity uses **progressive disclosure**. Once installed, the skills activate automatically based on your prompt:
+Once installed, the skills activate automatically based on your prompt:
 
 ### Mode A: Website Replication Prompts
 - *"Clone this website: https://example.com"*
@@ -120,8 +130,6 @@ Antigravity uses **progressive disclosure**. Once installed, the skills activate
 ---
 
 ## 🎨 Autonomous Design Archetypes (Mode B)
-
-When creating a website from an idea without visual references, the architect selects from 7 distinctive design archetypes:
 
 ```mermaid
 graph TD
