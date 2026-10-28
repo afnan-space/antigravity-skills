@@ -10,6 +10,7 @@ A production-grade collection of autonomous AI engineering skills for **Google A
 | :--- | :--- | :--- |
 | **[`autonomous-website-architect`](./skills/autonomous-website-architect)** | **Dual-Mode Architect**: (1) Reference-based replication from URLs/screenshots, and (2) Autonomous from-scratch design across 7 archetypes. | Complete website creation, product design, landing pages, and web apps from ideas or references. |
 | **[`pixel-perfect-website-replica`](./skills/pixel-perfect-website-replica)** | **Replication Specialist**: Dedicated reverse engineering engine for exact visual cloning, asset mapping, and multi-viewport diffing. | Strict 1:1 cloning of existing websites, UI screenshots, and downloaded asset directories. |
+| **[`website-asset-art-director`](./skills/website-asset-art-director)** | **Creative Art Director & Asset Pipeline**: Plans, generates, cleans, optimizes, and packages all web visual assets (characters, spritesheets, transparent cutouts, hero backdrops). | Complete asset planning, exact AI prompts, character consistency, spritesheet packaging, alpha cleansing, and web integration. |
 
 ---
 
@@ -105,6 +106,7 @@ your-project/
 Pre-packaged `.zip` archives are provided in the [`packages/`](./packages) folder:
 - [**`autonomous-website-architect.zip`**](./packages/autonomous-website-architect.zip)
 - [**`pixel-perfect-website-replica.zip`**](./packages/pixel-perfect-website-replica.zip)
+- [**`website-asset-art-director.zip`**](./packages/website-asset-art-director.zip)
 
 ---
 
@@ -112,7 +114,7 @@ Pre-packaged `.zip` archives are provided in the [`packages/`](./packages) folde
 
 Once installed, the skills activate automatically based on your prompt:
 
-### Mode A: Website Replication Prompts
+### 1. Website Replication Prompts (`pixel-perfect-website-replica`)
 - *"Clone this website: https://example.com"*
 - *"Make an exact replica of this website using my downloaded assets folder."*
 - *"Recreate this website from this full-page screenshot."*
@@ -120,12 +122,23 @@ Once installed, the skills activate automatically based on your prompt:
 - *"Ei website ta same to same baniye dao."*
 - *"Screenshot dekhe website ta recreate koro."*
 
-### Mode B: Autonomous Creation Prompts
+### 2. Autonomous Creation Prompts (`autonomous-website-architect`)
 - *"Build me a complete website for an AI trading platform."*
 - *"Create an e-commerce website for artisanal coffee from scratch."*
 - *"Design and build a landing page for my developer tools startup."*
 - *"Amar jonno ekta website baniye dao."*
 - *"Screenshot chara nijer moto ekta high-end gaming website design koro."*
+
+### 3. Asset Art Direction & Generation Prompts (`website-asset-art-director`)
+- *"Guide me through creating all website assets."*
+- *"Tell me which assets my website needs."*
+- *"Create an asset plan for my mining game."*
+- *"Help me generate transparent PNG characters."*
+- *"Tell me how to create a spritesheet."*
+- *"Which AI tool should I use for each asset?"*
+- *"Amar website er jonno ki ki asset lagbe?"*
+- *"Amake asset generate korar full guide dao."*
+- *"Ei website er asset gula kivabe banabo?"*
 
 ---
 
@@ -157,6 +170,24 @@ Generates cohesive CSS custom properties (colors, typography, radii, cut geometr
 ```bash
 python skills/autonomous-website-architect/scripts/design_token_generator.py saas
 # Options: gaming, web3, saas, ecommerce, portfolio, dashboard, business
+```
+
+### 3. `asset_matrix_builder.py`
+Audits existing project assets or plans a complete asset requirements matrix across gaming, crypto, saas, and telegram mini-app archetypes:
+```bash
+python skills/website-asset-art-director/scripts/asset_matrix_builder.py <path_to_assets> --archetype gaming
+```
+
+### 4. `transparency_verifier.py`
+Checks true alpha channels vs fake checkerboard trap, trims empty transparent borders, and converts to optimized WebP:
+```bash
+python skills/website-asset-art-director/scripts/transparency_verifier.py <path_to_image> --crop --to-webp
+```
+
+### 5. `spritesheet_packager.py`
+Takes sequential animation frame PNGs and stitches them into a horizontal spritesheet with preserved alpha and ready-to-use CSS `@keyframes steps()` code:
+```bash
+python skills/website-asset-art-director/scripts/spritesheet_packager.py <frames_dir> --out spritesheet.png --fps 12
 ```
 
 ---
